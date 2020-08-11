@@ -6,22 +6,16 @@ import express from 'express'
 import logger from '../logger'
 import ErrorMiddleware from '../middlewares/error.middlewares'
 
-class App {
-  app: express.Application
+const app = express()
+app.use(ErrorMiddleware)
+app.use(express.json())
 
-  constructor () {
-    this.app = express()
-    this.app.use(ErrorMiddleware)
-    this.app.use(express.json())
-  }
+const Init = () => {
+  const port = process.env.APP_PORT
 
-  Init () {
-    const port = process.env.APP_PORT
-
-    this.app.listen(port, () => {
-      logger(`SERVER INIT IN PORT ${port}`, 'SUCCESS')
-    })
-  }
+  app.listen(port, () => {
+    logger(`SERVER INIT IN PORT ${port}`, 'SUCCESS')
+  })
 }
 
-export default new App()
+export default Init
