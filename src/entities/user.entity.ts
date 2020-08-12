@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 @Entity('users')
 class User {
@@ -13,6 +19,9 @@ class User {
 
   @Column('varchar')
   password: string
+
+  @Column({ type: 'varchar', name: 'avatar_path' })
+  avatarPath: string
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date

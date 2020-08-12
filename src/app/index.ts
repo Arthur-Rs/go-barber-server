@@ -1,20 +1,23 @@
 import 'express-async-errors'
 import 'reflect-metadata'
 import 'dotenv/config'
+import '../database'
 
 import express from 'express'
 import logger from '../logger'
 import ErrorMiddleware from '../middlewares/error.middlewares'
+import routes from '../routes'
 
 const app = express()
-app.use(ErrorMiddleware)
 app.use(express.json())
+app.use(routes)
+app.use(ErrorMiddleware)
 
 const Init = () => {
   const port = process.env.APP_PORT
 
   app.listen(port, () => {
-    logger(`SERVER INIT IN PORT ${port}`, 'SUCCESS')
+    logger(`Server init in ${port}`, 'SUCCESS')
   })
 }
 
