@@ -22,8 +22,6 @@ class DeleteUser {
       throw new AppError('This user not exist', 400)
     }
 
-    console.log({ password, user })
-
     if (!(await this.hash.compareHash(password, user.password))) {
       throw new AppError('Incorrect Credentials', 401)
     }

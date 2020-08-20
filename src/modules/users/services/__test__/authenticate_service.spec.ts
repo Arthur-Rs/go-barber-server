@@ -1,14 +1,14 @@
 import 'dotenv/config'
-import FakeUserRepository from '../repositories/fakes/user_repository.fake'
+import FakeUserRepository from '../../repositories/fakes/user_repository.fake'
 
-import CreateUserService from './create.service'
-import AuthenticateService from './authenticate.service'
+import CreateUserService from '../create.service'
+import AuthenticateService from '../authenticate.service'
 
-import CreateUserDTO from '../dtos/create_user.dto'
-import AuthenticateDTO from '../dtos/authenticate.dto'
+import CreateUserDTO from '../../dtos/create_user.dto'
+import AuthenticateDTO from '../../dtos/authenticate.dto'
 import AppError from '@shared/errors/app.error'
 
-import FakeHashPassword from '../utils/password_hash/fakes/password_hash.fake'
+import FakeHashPassword from '../../utils/password_hash/fakes/password_hash.fake'
 
 describe('Authenticate User', () => {
   it('Should be able to authenticate', async () => {

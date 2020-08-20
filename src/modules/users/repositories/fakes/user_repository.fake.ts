@@ -39,7 +39,7 @@ class UserInterface implements IUserRepository {
     this.database.splice(index, 1)
   }
 
-  public async save(data: User): Promise<Omit<User, 'password'>> {
+  public async save(data: User): Promise<User> {
     const index = this.database.findIndex((user) => user.id === data.id)
     this.database[index] = data
     return this.database[index]

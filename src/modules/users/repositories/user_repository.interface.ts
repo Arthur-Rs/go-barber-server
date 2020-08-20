@@ -6,5 +6,5 @@ export default interface IUserRepository {
   create(data: ICreateUserfrom): Promise<Omit<IUser, 'password'>>
   remove(id: string): Promise<void>
   findById(id: string): Promise<IUser | undefined>
-  save(data: IUser): Promise<Omit<IUser, 'password'>>
+  save(data: IUser): Promise<IUser | Omit<IUser, 'password'>>
 }

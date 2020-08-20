@@ -1,12 +1,12 @@
-import FakeUserRepository from '../repositories/fakes/user_repository.fake'
+import FakeUserRepository from '../../repositories/fakes/user_repository.fake'
 
-import CreateUserService from './create.service'
-import DeleteUserService from './delete.service'
-import FindUserService from './find.service'
+import CreateUserService from './../create.service'
+import DeleteUserService from './../delete.service'
+import FindUserService from './../find.service'
 
-import CreateUserDTO from '../dtos/create_user.dto'
+import CreateUserDTO from '../../dtos/create_user.dto'
 
-import FakeHashPassword from '../utils/password_hash/fakes/password_hash.fake'
+import FakeHashPassword from '../../utils/password_hash/fakes/password_hash.fake'
 
 import AppError from '@shared/errors/app.error'
 

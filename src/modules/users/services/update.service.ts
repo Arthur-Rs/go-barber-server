@@ -4,6 +4,7 @@ import AppError from '@shared/errors/app.error'
 import IUserRepository from '@modules/users/repositories/user_repository.interface'
 import IUpdateUser from '@modules/users/dtos/update_user.dto'
 import IHashPasssword from '../utils/password_hash/model/password_hash.interface'
+import IUser from '../entities/user_entity.interface'
 
 @injectable()
 class DeleteUser {
@@ -15,7 +16,7 @@ class DeleteUser {
     private hash: IHashPasssword
   ) {}
 
-  public async execute(data: IUpdateUser): Promise<void> {
+  public async execute(data: IUpdateUser): Promise<IUser> {
     const { id, email, name, password, currentPassword } = data
 
     const user = await this.repository.findById(id)
@@ -29,12 +30,14 @@ class DeleteUser {
         throw new AppError('Incorrect Credentials', 401)
       }
 
-      user.password = password
+      user.password = await this.hash.generateHash(password)
     }
 
     Object.assign(user, { name: name && name, email: email && email })
 
     await this.repository.save(user)
+
+    return user
   }
 }
 

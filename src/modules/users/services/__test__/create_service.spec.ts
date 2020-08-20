@@ -1,9 +1,9 @@
-import FakeUserRepository from '../repositories/fakes/user_repository.fake'
-import CreateUserService from './create.service'
-import CreateUserDTO from '../dtos/create_user.dto'
+import FakeUserRepository from './../../repositories/fakes/user_repository.fake'
+import CreateUserService from './../create.service'
+import CreateUserDTO from '../../dtos/create_user.dto'
 import AppError from '@shared/errors/app.error'
 
-import FakeHashPassword from '../utils/password_hash/fakes/password_hash.fake'
+import FakeHashPassword from './../../utils/password_hash/fakes/password_hash.fake'
 
 describe('Create User Service', () => {
   it('Should be able to create new user', async () => {
