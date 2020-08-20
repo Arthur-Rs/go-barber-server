@@ -1,0 +1,10 @@
+import IUser from '../entities/user_entity.interface'
+import ICreateUserfrom from '../dtos/create_user.dto'
+
+export default interface IUserRepository {
+  findByEmail(email: string): Promise<IUser | undefined>
+  create(data: ICreateUserfrom): Promise<Omit<IUser, 'password'>>
+  remove(id: string): Promise<void>
+  findById(id: string): Promise<IUser | undefined>
+  save(data: IUser): Promise<Omit<IUser, 'password'>>
+}

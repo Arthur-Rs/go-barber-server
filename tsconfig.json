@@ -1,9 +1,7 @@
 {
   "compilerOptions": {                  
     "target": "ES2017",                         
-    "module": "commonjs",                    
-    "allowJs": true,                       
-    "checkJs": true,                       
+    "module": "commonjs",                                        
     "outDir": "./build",                        
     "rootDir": "./src",                       
     "strict": true,      
@@ -13,6 +11,13 @@
     "emitDecoratorMetadata": true,          
     "skipLibCheck": true, 
     "removeComments": true,                 
-    "forceConsistentCasingInFileNames": true  
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "resolveJsonModule": true,
+    "paths": {
+      "@modules/*": ["modules/*"],
+      "@shared/*":["shared/*"],
+      "@config/*":["config/*"]
+    }  
   }
 }
