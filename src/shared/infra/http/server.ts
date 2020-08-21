@@ -6,7 +6,7 @@ import '@shared/container'
 
 import express from 'express'
 import logger from '@shared/logger'
-import ErrorMiddleware from '@shared/infra/http/middlewares/error.middlewares'
+import ErrorMiddleware from '@shared/infra/http/middlewares/error.middleware'
 import routes from '@shared/infra/http/routes'
 import cors from 'cors'
 

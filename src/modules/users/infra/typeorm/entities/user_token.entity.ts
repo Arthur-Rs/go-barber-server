@@ -5,19 +5,27 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Generated,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm'
 
+import User from './user.entity'
+
 @Entity('user_tokens')
-class User {
+class UserToken {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column('')
+  @Column()
   @Generated('uuid')
   token: string
 
   @Column({ name: 'user_id', type: 'uuid' })
   userId: string
+
+  @JoinColumn({ name: 'user_id' })
+  @ManyToOne(() => User)
+  user: User
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date
@@ -26,4 +34,4 @@ class User {
   updatedAt: Date
 }
 
-export default User
+export default UserToken

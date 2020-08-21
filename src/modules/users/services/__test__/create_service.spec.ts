@@ -45,6 +45,8 @@ describe('Create User Service', () => {
 
     await createUserService.execute(userData)
 
-    expect(createUserService.execute(userData)).rejects.toBeInstanceOf(AppError)
+    await expect(createUserService.execute(userData)).rejects.toBeInstanceOf(
+      AppError
+    )
   })
 })

@@ -2,21 +2,21 @@ const Logger = (
   message: string,
   type: 'SUCCESS' | 'ERROR' | 'WARNING'
 ): void => {
-  const text = `| LOG | ${type} | ${message} |`;
+  const text = `| LOG | ${type} | ${message} |`
 
   switch (type) {
     case 'SUCCESS':
-      console.log(text);
-      break;
+      console.log(text)
+      break
 
     case 'WARNING':
-      console.warn(text);
-      break;
+      console.warn(text)
+      break
 
     case 'ERROR':
-      console.error(text);
-      break;
+      console.error(text)
+      break
   }
-};
+}
 
-export default Logger;
+export default Logger

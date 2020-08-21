@@ -69,9 +69,9 @@ describe('Authenticate User', () => {
 
     await createUserService.execute(user)
 
-    expect(authenticateService.execute(userCredentials)).rejects.toBeInstanceOf(
-      AppError
-    )
+    await expect(
+      authenticateService.execute(userCredentials)
+    ).rejects.toBeInstanceOf(AppError)
   })
 
   it('Must not be able to authenticate with the incorrect email', async () => {

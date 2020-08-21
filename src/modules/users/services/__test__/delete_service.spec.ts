@@ -39,7 +39,7 @@ describe('Delete User Service', () => {
 
     await deleteUserService.execute({ id, password: '12345678' })
 
-    expect(findUserServide.execute(id)).rejects.toBeInstanceOf(AppError)
+    await expect(findUserServide.execute(id)).rejects.toBeInstanceOf(AppError)
   })
 
   it('Should not be able delete the user with the incorrect password', async () => {
@@ -68,7 +68,7 @@ describe('Delete User Service', () => {
 
     const { id } = user
 
-    expect(
+    await expect(
       deleteUserService.execute({ id, password: '123' })
     ).rejects.toBeInstanceOf(AppError)
   })
@@ -82,7 +82,7 @@ describe('Delete User Service', () => {
       fakeHashPassword
     )
 
-    expect(
+    await expect(
       deleteUserService.execute({ id: '123', password: '123' })
     ).rejects.toBeInstanceOf(AppError)
   })

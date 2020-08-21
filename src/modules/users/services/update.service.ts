@@ -25,6 +25,14 @@ class DeleteUser {
       throw new AppError('This User not exist', 400)
     }
 
+    if (email) {
+      const checkingEmail = await this.repository.findByEmail(email)
+
+      if (checkingEmail) {
+        throw new AppError('This user already exists', 400)
+      }
+    }
+
     if (currentPassword && password) {
       if (!(await this.hash.compareHash(currentPassword, user.password))) {
         throw new AppError('Incorrect Credentials', 401)

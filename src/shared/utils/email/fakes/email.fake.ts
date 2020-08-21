@@ -1,15 +1,11 @@
 import IMail from '../models/mail.interface'
-
-interface IMessages {
-  to: string
-  body: string
-}
+import ISendMailDTO from '../dtos/send_mail.dto'
 
 class FakeMail implements IMail {
-  private emails: IMessages[] = []
+  private emails: ISendMailDTO[] = []
 
-  public async sendMail(to: string, body: string): Promise<void> {
-    this.emails.push({ to, body })
+  public async sendMail(data: ISendMailDTO): Promise<void> {
+    this.emails.push(data)
   }
 }
 

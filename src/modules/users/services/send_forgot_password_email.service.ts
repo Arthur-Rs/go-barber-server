@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe'
+import { resolve } from 'path'
 
 import IUserRepository from '@modules/users/repositories/user_repository.interface'
 import IUserTokenRepository from '@modules/users/repositories/user_token_repository.interface'
@@ -30,8 +31,31 @@ class SendForgotPasswordMailService {
 
     const { id } = user
 
-    await this.userTokenRepository.generate(id)
-    await this.email.sendMail(email, 'Pedido de recuperação de senha!')
+    const { token } = await this.userTokenRepository.generate(id)
+
+    const pathTemplate = resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs'
+    )
+
+    const resetLink = process.env.LINK_RESET
+
+    await this.email.sendMail({
+      to: {
+        email: user.email,
+        name: user.name,
+      },
+      subject: 'Recuperação de senha',
+      templateData: {
+        file: pathTemplate,
+        variables: {
+          name: user.name,
+          link: `${resetLink}${token}`,
+        },
+      },
+    })
   }
 }
 
