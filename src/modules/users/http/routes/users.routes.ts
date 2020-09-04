@@ -1,31 +1,22 @@
 import { Router } from 'express'
-
-// => Configs
-import authMiddleware from '@modules/users/http/middlewares/auth.middleware'
-import upload from '@config/multer.config'
+import { celebrate, Joi } from 'celebrate'
 
 // => Controllers
 import UserController from '../controllers/user.controller'
-import AvatarController from '../controllers/avatar.controller'
 
 const routes = Router()
 
-// <== PUBLIC ROUTES ==>
-
-routes.post('/', UserController.create)
-
-// <== PRIVATE ROUTES ==>
-
-routes.use(authMiddleware)
-
-routes.get('/', upload.single('file'), UserController.show)
-
-routes.delete('/', upload.single('file'), UserController.delete)
-
-routes.put('/', upload.single('file'), UserController.update)
-
-// <== AVATAR ROUTES ==>
-
-routes.put('/avatar', upload.single('file'), AvatarController.create)
+routes.post(
+  '/',
+  celebrate({
+    body: {
+      name: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().min(8).required(),
+      password_confirmation: Joi.string().required().valid(Joi.ref('password')),
+    },
+  }),
+  UserController.create
+)
 
 export default routes

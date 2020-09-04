@@ -5,9 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import IUser from '@modules/users/entities/user_entity.interface'
 
 @Entity('users')
-class User {
+class User implements IUser {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -20,8 +21,8 @@ class User {
   @Column('varchar')
   password: string
 
-  @Column({ type: 'varchar', name: 'avatar_path' })
-  avatarPath: string
+  @Column({ type: 'varchar', name: 'avatar_path', nullable: true })
+  avatarPath?: string
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date

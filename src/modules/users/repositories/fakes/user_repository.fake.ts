@@ -1,6 +1,6 @@
 import { uuid } from 'uuidv4'
 
-import User from '@modules/users/infra/typeorm/entities/user.entity'
+import User from '@modules/users/entities/user_entity.interface'
 import IUserRepository from '@modules/users/repositories/user_repository.interface'
 import ICreateUser from '@modules/users/dtos/create_user.dto'
 
@@ -12,17 +12,22 @@ class UserInterface implements IUserRepository {
     return user
   }
 
+  public async showAllProviders(expectId: string): Promise<User[]> {
+    const providers = this.database.filter((user) => user.id !== expectId)
+    return providers
+  }
+
   public async create(data: ICreateUser): Promise<User> {
     const { email, name, password } = data
 
-    const newUser = new User()
-
-    Object.assign(newUser, {
+    const newUser: User = {
       id: uuid(),
       email,
       name,
       password,
-    })
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
 
     this.database.push(newUser)
 

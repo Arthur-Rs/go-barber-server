@@ -1,8 +1,7 @@
 import { Router } from 'express'
-import { container } from 'tsyringe'
 
-// => Services
-import CreateAppointment from '@modules/appointments/services/create.service'
+import AppointmentService from '../controllers/appointments.controller'
+import ProviderAppointment from '../controllers/provider-appointments.controller'
 
 // => Middlewares
 import authMiddleware from '@modules/users/http/middlewares/auth.middleware'
@@ -11,17 +10,8 @@ const routes = Router()
 
 routes.use(authMiddleware)
 
-routes.post('/', async (req, res) => {
-  const { date } = req.body as { date: string }
-  const { id: providerId } = req.user
+routes.post('/', AppointmentService.create)
 
-  const createAppointment = container.resolve(CreateAppointment)
-
-  const appointment = await createAppointment.execute({
-    date,
-    providerId,
-  })
-  return res.status(201).send(appointment)
-})
+routes.get('/me', ProviderAppointment.index)
 
 export default routes

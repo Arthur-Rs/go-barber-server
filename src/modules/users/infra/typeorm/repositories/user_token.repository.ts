@@ -1,12 +1,12 @@
 import { getRepository } from 'typeorm'
-import UserTokenEntity from '../entities/user_token.entity'
-
-import IUserTokenRepository from '@modules/users/repositories/user_token_repository.interface'
 import { uuid } from 'uuidv4'
 
+import UserToken from '../entities/user_token.entity'
+import IUserTokenRepository from '@modules/users/repositories/user_token_repository.interface'
+
 class UserTokenRepository implements IUserTokenRepository {
-  public async generate(userId: string): Promise<UserTokenEntity> {
-    const repository = getRepository(UserTokenEntity)
+  public async generate(userId: string): Promise<UserToken> {
+    const repository = getRepository(UserToken)
 
     const userToken = repository.create({
       token: uuid(),
@@ -18,10 +18,8 @@ class UserTokenRepository implements IUserTokenRepository {
     return userToken
   }
 
-  public async findByToken(
-    token: string
-  ): Promise<UserTokenEntity | undefined> {
-    const repository = getRepository(UserTokenEntity)
+  public async findByToken(token: string): Promise<UserToken | undefined> {
+    const repository = getRepository(UserToken)
     const userToken = await repository.findOne({ where: { token } })
     return userToken
   }

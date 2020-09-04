@@ -5,15 +5,23 @@ import '@shared/infra/typeorm'
 import '@shared/container'
 
 import express from 'express'
-import logger from '@shared/logger'
-import ErrorMiddleware from '@shared/infra/http/middlewares/error.middleware'
-import routes from '@shared/infra/http/routes'
 import cors from 'cors'
+import { errors } from 'celebrate'
+
+import ErrorMiddleware from '@shared/infra/http/middlewares/error.middleware'
+
+import routes from '@shared/infra/http/routes'
+import logger from '@shared/logger'
 
 const app = express()
+
 app.use(cors())
 app.use(express.json())
+
 app.use(routes)
+
+app.use(errors())
+
 app.use(ErrorMiddleware)
 
 const port = process.env.APP_PORT

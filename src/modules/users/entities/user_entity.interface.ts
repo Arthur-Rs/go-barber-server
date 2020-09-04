@@ -7,7 +7,7 @@ export default interface IUser {
 
   password: string
 
-  avatarPath: string
+  avatarPath?: string
 
   createdAt: Date
 

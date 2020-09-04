@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 
 import IUserRepository from '@modules/users/repositories/user_repository.interface'
@@ -18,6 +19,8 @@ class DeleteUser {
       throw new AppError('Incorrect Credentials', 401)
     }
 
+    delete user.password
+    delete user.updatedAt
     return user
   }
 }

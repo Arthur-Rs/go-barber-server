@@ -1,7 +1,7 @@
 import FakeUserRepository from '../../repositories/fakes/user_repository.fake'
 
 import CreateUserService from '../create.service'
-import FindUserService from '../find.service'
+import FindUserService from '../show.service'
 
 import CreateUserDTO from '../../dtos/create_user.dto'
 

@@ -24,13 +24,15 @@
     "prettier": "^2.0.5",
     "ts-node-dev": "^1.0.0-pre.56",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.9.7"
-  },
-  "dependencies": {
+    "typescript": "^3.9.7",
     "@types/cors": "^2.8.7",
     "@types/handlebars": "^4.1.0",
     "@types/multer": "^1.4.3",
     "@types/nodemailer": "^6.4.0",
+    "reflect-metadata": "^0.1.13",
+    "ts-jest": "^26.2.0"
+  },
+  "dependencies": {
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "date-fns": "^2.15.0",
@@ -42,8 +44,6 @@
     "multer": "^1.4.2",
     "nodemailer": "^6.4.11",
     "pg": "^8.3.0",
-    "reflect-metadata": "^0.1.13",
-    "ts-jest": "^26.2.0",
     "tsyringe": "^4.3.0",
     "typeorm": "^0.2.25",
     "uuidv4": "^6.2.2"

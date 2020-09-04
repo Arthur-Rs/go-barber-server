@@ -10,9 +10,10 @@ import {
 } from 'typeorm'
 
 import User from './user.entity'
+import IUserToken from '@modules/users/entities/user_token_entity.interface'
 
 @Entity('user_tokens')
-class UserToken {
+class UserToken implements IUserToken {
   @PrimaryGeneratedColumn('uuid')
   id: string
 

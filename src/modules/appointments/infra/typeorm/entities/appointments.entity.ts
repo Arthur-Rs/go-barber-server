@@ -24,6 +24,13 @@ class Appointment {
   @ManyToOne(() => User)
   provider: User
 
+  @Column({ name: 'user_id' })
+  userId: string
+
+  @JoinColumn({ name: 'user_id' })
+  @ManyToOne(() => User)
+  User: User
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date
 

@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 import { differenceInMinutes } from 'date-fns'
 
@@ -25,7 +26,7 @@ class SendForgotPasswordMailService {
 
     const userToken = await this.userTokenRepository.findByToken(token)
 
-    if (!userToken) {
+    if (!userToken?.id) {
       throw new AppError('token does not exists', 400)
     }
 

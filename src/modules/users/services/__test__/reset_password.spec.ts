@@ -37,6 +37,8 @@ describe('Send Forgot Password Email', () => {
 
     await resetPasswordService.execute({ token, password: '87654321' })
 
+    console.log(id)
+
     const user = await fakeUserRepository.findById(id)
 
     expect(user?.password).toEqual('87654321')

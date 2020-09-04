@@ -18,6 +18,9 @@ import Mail from '@shared/utils/email/implementations/ethereal'
 import MailTemplate from '@shared/utils/email/templates/implementations/handlebars'
 import IMailTemplate from '@shared/utils/email/templates/models/template_mail.interface'
 
+import NotificationRepository from '@modules/notifications/infra/typeorm/repositories/notification.repository'
+import INotificationRepository from '@modules/notifications/repositories/notification-repository.interface'
+
 container.registerSingleton<IAppointmentRepository>(
   'AppointmentRepository',
   AppointmentRepository
@@ -33,3 +36,8 @@ container.registerSingleton<IUserTokenRepository>(
 container.registerSingleton<IMailTemplate>('MailTemplate', MailTemplate)
 
 container.registerInstance<IMail>('Email', container.resolve(Mail))
+
+container.registerSingleton<INotificationRepository>(
+  'notification-repository',
+  NotificationRepository
+)

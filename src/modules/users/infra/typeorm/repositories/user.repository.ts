@@ -1,6 +1,5 @@
-import { getRepository } from 'typeorm'
+import { getRepository, Not } from 'typeorm'
 import { uuid } from 'uuidv4'
-import { hash } from 'bcrypt'
 
 import User from '@modules/users/infra/typeorm/entities/user.entity'
 import IUserRepository from '@modules/users/repositories/user_repository.interface'
@@ -13,15 +12,24 @@ class UserInterface implements IUserRepository {
     return user
   }
 
+  public async showAllProviders(expectId: string): Promise<User[]> {
+    const repository = getRepository(User)
+    const providers = await repository.find({
+      select: ['id', 'name', 'email', 'avatarPath'],
+      where: { id: Not(expectId) },
+    })
+    return providers
+  }
+
   public async create(data: ICreateUser): Promise<Omit<User, 'password'>> {
     const repository = getRepository(User)
     const { email, name, password } = data
-    const passwordHash = await hash(password, 8)
+
     const newUser = repository.create({
       id: uuid(),
       email,
       name,
-      password: passwordHash,
+      password,
     })
     await repository.save(newUser)
     delete newUser.password
