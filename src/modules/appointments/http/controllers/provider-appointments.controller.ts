@@ -5,16 +5,16 @@ import ListProviderAppointments from '@modules/appointments/services/list-provid
 
 class ProviderAppointmentsController {
   public async index(req: Request, res: Response) {
-    const { month, day, year } = req.body
+    const { month, day, year } = req.query
     const providerId = req.user.id
 
     const service = container.resolve(ListProviderAppointments)
 
     const appointments = await service.execute({
-      day,
-      month,
+      day: Number(day),
+      month: Number(month),
+      year: Number(year),
       providerId,
-      year,
     })
     return res.json(appointments)
   }

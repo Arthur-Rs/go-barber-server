@@ -6,6 +6,7 @@ import CreateUserDTO from '@modules/users/dtos/create_user.dto'
 import IUser from '@modules/users/entities/user_entity.interface'
 import IUserRepository from '@modules/users/repositories/user_repository.interface'
 import IHashPasssword from '../utils/password_hash/model/password_hash.interface'
+import ICache from '@shared/utils/cache/models/cache.interface'
 
 @injectable()
 class CreateUser {
@@ -14,7 +15,10 @@ class CreateUser {
     private repository: IUserRepository,
 
     @inject('Hash')
-    private hash: IHashPasssword
+    private hash: IHashPasssword,
+
+    @inject('Cache')
+    private cache: ICache
   ) {}
 
   public async execute(data: CreateUserDTO): Promise<Omit<IUser, 'password'>> {
@@ -34,6 +38,7 @@ class CreateUser {
       password: passwordHash,
     })
 
+    await this.cache.invalidadePrefix('list-providers')
     return newUser
   }
 }

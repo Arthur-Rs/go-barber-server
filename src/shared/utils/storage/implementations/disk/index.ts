@@ -8,7 +8,7 @@ class DiskStorage implements IStorage {
   public async saveFile(file: string): Promise<string> {
     await fs.promises.rename(
       resolve(pathFolder, file),
-      resolve(pathUpload, 'upload', file)
+      resolve(pathUpload, file)
     )
 
     return file

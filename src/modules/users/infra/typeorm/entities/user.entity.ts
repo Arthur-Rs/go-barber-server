@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,6 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import IUser from '@modules/users/entities/user_entity.interface'
+
+import { Exclude, Expose } from 'class-transformer'
 
 @Entity('users')
 class User implements IUser {
@@ -18,6 +21,7 @@ class User implements IUser {
   @Column('varchar')
   email: string
 
+  @Exclude()
   @Column('varchar')
   password: string
 
@@ -29,6 +33,13 @@ class User implements IUser {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date
+
+  @Expose({ name: 'avatar_url' })
+  avatarPathURL(): string | null {
+    return this.avatarPath
+      ? `${process.env.APP_WEB_URL}/files/${this.avatarPath}`
+      : null
+  }
 }
 
 export default User

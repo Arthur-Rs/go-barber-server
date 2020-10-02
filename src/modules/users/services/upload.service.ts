@@ -4,7 +4,7 @@ import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/app.error'
 import IUserRepository from '@modules/users/repositories/user_repository.interface'
 import IUploadAvatar from '@modules/users/dtos/upload_avatar.dto'
-import IStorage from '@shared/utils/storange/models/storange.interface'
+import IStorage from '@shared/utils/storage/models/storange.interface'
 import IUser from '../entities/user_entity.interface'
 
 @injectable()

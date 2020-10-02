@@ -13,16 +13,22 @@ import CreateAppointmentDTO from '@modules/appointments/dtos/create_appointment.
 import IAppointmentRepository from '@modules/appointments/repositories/appointment_repository.interface'
 import IUserRepository from '@modules/users/repositories/user_repository.interface'
 import INotificationRepository from '@modules/notifications/repositories/notification-repository.interface'
+import ICache from '@shared/utils/cache/models/cache.interface'
 
 @injectable()
 class CreateAppointment {
   constructor(
     @inject('AppointmentRepository')
     private AppointmentRepository: IAppointmentRepository,
+
     @inject('UserRepository')
     private UserRepository: IUserRepository,
+
     @inject('notification-repository')
-    private NotificationRepository: INotificationRepository
+    private NotificationRepository: INotificationRepository,
+
+    @inject('Cache')
+    private cache: ICache
   ) {}
 
   public async execute(data: CreateAppointmentDTO): Promise<Appointment> {
@@ -73,6 +79,9 @@ class CreateAppointment {
       content: `Você tem um novo agendamento de ${user.name}, para o dia ${dateFormated}`,
     })
 
+    this.cache.invalidate(
+      `provider-appointments:${providerId}:${format(ParsedDate, 'd-M-yyyy')}`
+    )
     return newAppointment
   }
 }

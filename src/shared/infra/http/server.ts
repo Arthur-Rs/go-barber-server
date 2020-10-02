@@ -9,12 +9,14 @@ import cors from 'cors'
 import { errors } from 'celebrate'
 
 import ErrorMiddleware from '@shared/infra/http/middlewares/error.middleware'
+import RateLimiterMiddleware from '@shared/infra/http/middlewares/rate-limiter.middleware'
 
 import routes from '@shared/infra/http/routes'
 import logger from '@shared/logger'
 
 const app = express()
 
+app.use(RateLimiterMiddleware)
 app.use(cors())
 app.use(express.json())
 

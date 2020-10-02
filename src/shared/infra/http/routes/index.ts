@@ -8,11 +8,9 @@ import passwordRoutes from '@modules/users/http/routes/password.routes'
 import profileRoutes from '@modules/users/http/routes/profile.routes'
 import providersRoutes from '@modules/appointments/http/routes/providers.routes'
 
-// => middlewares
 import LoggerMiddleware from '@shared/infra/http/middlewares/logger.middleware'
 
-// => Configs
-import { pathFolder } from '@config/multer.config'
+import { pathUpload } from '@config/multer.config'
 
 const routes = Router()
 
@@ -25,6 +23,6 @@ routes.use('/users', usersRoutes)
 routes.use('/session', sessionRoutes)
 routes.use('/password', passwordRoutes)
 routes.use('/profile', profileRoutes)
-routes.use('/avatar', express.static(pathFolder))
+routes.use('/files', express.static(pathUpload))
 
 export default routes

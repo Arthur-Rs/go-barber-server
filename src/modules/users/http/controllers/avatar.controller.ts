@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
+import { classToClass } from 'class-transformer'
 
 // => Services
 import UploadAvatar from '@modules/users/services/upload.service'
@@ -10,9 +11,9 @@ class AvatarController {
     const { id: userId } = req.user
 
     const uploadAvatar = container.resolve(UploadAvatar)
-    await uploadAvatar.execute({ file, userId })
+    const user = await uploadAvatar.execute({ file, userId })
 
-    return res.status(201).json({ message: 'Success' })
+    return res.status(201).json({ user: classToClass(user) })
   }
 }
 

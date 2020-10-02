@@ -1,5 +1,6 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
+import { classToClass } from 'class-transformer'
 
 // => Services
 import DeleteUser from '@modules/users/services/delete.service'
@@ -10,13 +11,13 @@ class ProfileController {
   async show(req: Request, res: Response) {
     const findUser = container.resolve(FindUser)
     const user = await findUser.execute(req.user.id)
-    return res.status(200).json(user)
+    return res.status(200).json({ user: classToClass(user) })
   }
 
   async update(req: Request, res: Response) {
     const updateUser = container.resolve(UpdateUser)
     const user = await updateUser.execute({ id: req.user.id, ...req.body })
-    return res.status(200).json(user)
+    return res.status(200).json({ user: classToClass(user) })
   }
 
   async delete(req: Request, res: Response) {

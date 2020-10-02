@@ -3,12 +3,16 @@ import { injectable, inject } from 'tsyringe'
 import IAppointmentRepository from '@modules/appointments/repositories/appointment_repository.interface'
 import ListProviderDayAvailabilityDTO from '../dtos/list-provider-day-availability.dto'
 import Appointment from '../entities/appointment.entity'
+import ICache from '@shared/utils/cache/models/cache.interface'
 
 @injectable()
 class ListProviderDayAvailability {
   constructor(
     @inject('AppointmentRepository')
-    private repository: IAppointmentRepository
+    private repository: IAppointmentRepository,
+
+    @inject('Cache')
+    private cache: ICache
   ) {}
 
   public async execute({
@@ -17,13 +21,20 @@ class ListProviderDayAvailability {
     providerId,
     year,
   }: ListProviderDayAvailabilityDTO): Promise<Appointment[]> {
-    const appointments = await this.repository.findAllDay({
-      providerId,
-      day,
-      month,
-      year,
-    })
+    const cacheKey = `provider-appointments:${providerId}:${day}-${month}-${year}`
 
+    let appointments = await this.cache.recover<Appointment[]>(cacheKey)
+
+    if (!appointments) {
+      appointments = (await this.repository.findAllDay({
+        providerId,
+        day,
+        month,
+        year,
+      })) as Appointment[] | null
+
+      await this.cache.save(cacheKey, appointments)
+    }
     return appointments || []
   }
 }

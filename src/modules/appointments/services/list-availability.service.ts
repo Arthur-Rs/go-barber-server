@@ -4,6 +4,7 @@ import ListAvailabilityDTO from '../dtos/list_availability.dto'
 import IAppointmentRepository from '@modules/appointments/repositories/appointment_repository.interface'
 import { getDaysInMonth, getDate } from 'date-fns'
 import AppError from '@shared/errors/app.error'
+import ICache from '@shared/utils/cache/models/cache.interface'
 
 type IResponse = Array<{
   day: number
@@ -14,7 +15,10 @@ type IResponse = Array<{
 class ListAvailabilityService {
   constructor(
     @inject('AppointmentRepository')
-    private repository: IAppointmentRepository
+    private repository: IAppointmentRepository,
+
+    @inject('Cache')
+    private cache: ICache
   ) {}
 
   public async execute(data: ListAvailabilityDTO): Promise<IResponse> {

@@ -4,6 +4,7 @@ import IAppointmentRepository from '@modules/appointments/repositories/appointme
 import ListProviderDayAvailabilityDTO from '../dtos/list-provider-day-availability.dto'
 import { getHours, isAfter } from 'date-fns'
 import AppError from '@shared/errors/app.error'
+import ICache from '@shared/utils/cache/models/cache.interface'
 
 type IResponse = Array<{
   hour: number
@@ -14,13 +15,22 @@ type IResponse = Array<{
 class ListProviderDayAvailability {
   constructor(
     @inject('AppointmentRepository')
-    private repository: IAppointmentRepository
+    private repository: IAppointmentRepository,
+
+    @inject('Cache')
+    private cache: ICache
   ) {}
 
   public async execute(
     data: ListProviderDayAvailabilityDTO
   ): Promise<IResponse> {
     const { day, month, year, providerId } = data
+
+    const cache = await this.cache.recover('$$')
+
+    if (cache) {
+      console.log(cache)
+    }
 
     const appointInDay = await this.repository.findAllDay({
       day,
@@ -56,6 +66,7 @@ class ListProviderDayAvailability {
       }
     })
 
+    this.cache.save('$$', '$$')
     return arrAvailability
   }
 }

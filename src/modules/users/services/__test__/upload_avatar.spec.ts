@@ -1,5 +1,5 @@
 import FakeUserRepository from '../../repositories/fakes/user_repository.fake'
-import FakeStorage from '@shared/utils/storange/fakes/storage.fake'
+import FakeStorage from '@shared/utils/storage/fakes/storage.fake'
 import FakePasswordHash from '../../utils/password_hash/fakes/password_hash.fake'
 
 import UploadAvatarService from '../upload.service'
