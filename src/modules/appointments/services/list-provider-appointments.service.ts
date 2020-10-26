@@ -4,6 +4,7 @@ import IAppointmentRepository from '@modules/appointments/repositories/appointme
 import ListProviderDayAvailabilityDTO from '../dtos/list-provider-day-availability.dto'
 import Appointment from '../entities/appointment.entity'
 import ICache from '@shared/utils/cache/models/cache.interface'
+import { classToClass } from 'class-transformer'
 
 @injectable()
 class ListProviderDayAvailability {
@@ -33,7 +34,7 @@ class ListProviderDayAvailability {
         year,
       })) as Appointment[] | null
 
-      await this.cache.save(cacheKey, appointments)
+      await this.cache.save(cacheKey, classToClass(appointments))
     }
     return appointments || []
   }

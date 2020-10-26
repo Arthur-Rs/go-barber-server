@@ -18,7 +18,7 @@ class AppointmentsController {
       providerId,
       userId,
     })
-    return res.status(201).send(appointment)
+    return res.status(201).json(appointment)
   }
 }
 

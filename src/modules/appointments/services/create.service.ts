@@ -35,7 +35,10 @@ class CreateAppointment {
     const { date, userId, providerId } = data
 
     const ParsedDate = startOfHour(date)
-    const findDate = await this.AppointmentRepository.findByDate(ParsedDate)
+    const findDate = await this.AppointmentRepository.findByDate(
+      ParsedDate,
+      providerId
+    )
     const provider = await this.UserRepository.findById(providerId)
     const user = await this.UserRepository.findById(userId)
 
